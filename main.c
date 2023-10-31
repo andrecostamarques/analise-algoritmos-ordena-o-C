@@ -66,7 +66,7 @@ int main(void){
                 printf("Info: %.f/ \n", teste[j].info);
 
 
-            if(teste[j].info > teste[j+1].info){
+            if(teste[j].info < teste[j+1].info){
 
                 printf("\nTroca realizada: de %d com %d\n",teste[j].chave, teste[j+1].chave);
 
