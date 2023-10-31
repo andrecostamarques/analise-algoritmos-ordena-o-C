@@ -25,7 +25,7 @@ void bubbleSort(array* a, int qnt){
 
         for(int j = 0; j < qnt-1; j++){
 
-            if(a[j].info > a[j+1].info){
+            if(a[j].info < a[j+1].info){
 
                 temp = a[j];
                 a[j] = a[j+1];
