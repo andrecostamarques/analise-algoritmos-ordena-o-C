@@ -5,67 +5,87 @@
 
 typedef struct dado{
     float info;
-    int chave;
+    int chave;  //criando a estrutura dado
 } array;
 
 int main(void){
 
     //declaração dos vetores
-
-    array umum[10000];
+    // array umum[10000];
     // array umdois[10000];	
-    array doisum[50000];	
-    // array doisdois[50000];
-    array tresum[100000];
-    // array tresdois[100000];
-    array quatroum[500000];	
-    // array quatrodois[500000];	
-    array cincoum[1000000];
-    // array cincodois[1000000];
+    // //vai ser uma array de dois tipos, cada vez que executar o código (ou terão vários codigos) será uma array 
+    // //diferente para não ter problema de memória
 
-    unsigned int seed = (unsigned int) time(0); //salvando a seed pela função tempo
-    srand(seed); //passando o valor da seed criada pelo tempo para a função srand -> 
-    //todos os numeros random serão baseados nessa seed agr.
-    printf("%d", seed);
+    // unsigned int seed = 1698710382; //salvando a seed pela função tempo -> peguei em algum dia um numero random
+    // srand(seed); //passando o valor da seed criada pelo tempo para a função srand -> 
+    // //todos os numeros random serão baseados nessa seed agr.
+    // printf("%d", seed);
 
-    for(int i = 0; i < 10000 ; i++){
-        umum[i].info = rand()+100;
-        umum[i].chave = rand();
+    // for(int i = 0; i < 10000 ; i++){
+    //     umum[i].info = rand()+100;  //valor float maior que 100
+    //     umum[i].chave = rand();     //chave aleatoria int
+    // }
+    // printf("\n%d", umum[0].chave);
+
+    // for(int i = 0; i < 10000 ; i++){    
+    //     umdois[i].info = rand()+100;    //valor float maior que 100
+    //     umdois[i].chave = i;            //chave int ordem crescente
+    // }
+    // printf("\n%d", umdois[0].chave);
+
+    array teste[5];
+    teste[0].chave = 0;
+    teste[1].chave = 1;
+    teste[2].chave = 2;
+    teste[3].chave = 3;
+    teste[4].chave = 4;
+
+    teste[0].info = 7;
+    teste[1].info = 19;
+    teste[2].info = 1;
+    teste[3].info = 22;
+    teste[4].info = 13;
+
+    array temp;
+
+
+
+
+    //bubble sort que é mais fácil ----------------------------------------------------------------
+    //oq é o bubble sort? ele faz diversas passagens pela array e checa os valores adjacentes, se for necessário 
+    //ele troca os valores adjacentes, ele repete esse percurso tantas vezes que troca todos os valores adjacentes
+    //e ordena a array inteira
+
+    for(int i = 0; i < 5; i++){
+
+            printf("\nNova run maior\n");
+
+        for(int j = 0; j < 5-1; j++){
+
+                printf("Chave: %d/ ", teste[j].chave);
+                printf("Info: %.f/ \n", teste[j].info);
+
+
+            if(teste[j].info > teste[j+1].info){
+
+                printf("\nTroca realizada: de %d com %d\n",teste[j].chave, teste[j+1].chave);
+
+                
+
+                temp = teste[j];
+                teste[j] = teste[j+1];
+                teste[j+1] = temp;
+
+            }
+
+        }
+
     }
-        printf("\n%d", umum[0].chave);
-    for(int i = 0; i < 50000 ; i++){
-        doisum[i].info = rand()+100;
-        doisum[i].chave = rand();
+
+    printf("Info / Chave");
+    for(int i = 0; i < 5; i++){
+    printf("\n%.f - %d", teste[i].info, teste[i].chave);
     }
-    
-    printf(" %d", doisum[0].chave);
-    for(int i = 0; i < 100000 ; i++){
-        tresum[i].info = rand()+100;
-        tresum[i].chave = rand();
-    }
-    
-    printf(" %d", tresum[0].chave);
-    for(int i = 0; i < 500000 ; i++){
-        quatroum[i].info = rand()+100;
-        quatroum[i].chave = rand();
-    }
-    
-    printf(" %d", quatroum[0].chave);
-    for(int i = 0; i < 1000000 ; i++){
-        cincoum[i].info = rand()+100;
-        cincoum[i].chave = rand();
-    }
-
-    printf(" %d", cincoum[0].chave);
-
-
-
-
-
-
-
-
-
 
     return 0;
 }
