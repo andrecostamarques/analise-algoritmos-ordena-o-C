@@ -32,9 +32,7 @@ void bubbleSort(array* a, int qnt){
                 a[j+1] = temp;
 
             }
-
         }
-
     }
 
     clock_t end = clock();
@@ -55,12 +53,11 @@ void printArray(array *a, int qnt){
 
 int main(void){
 
-    int n = 10000;
+    int n = 1000000;
     unsigned int seed = 1698710382; 
 
     //declaração dos vetores
-    array umum[n];
-    array* umumptr = umum;  //checar com lucia se isso aqui ta certo
+    array* umum =  (array*)malloc(n*sizeof(array));
 
 
     srand(seed); 
@@ -76,7 +73,7 @@ int main(void){
         umum[i].chave = rand();     //chave aleatoria int
     }
 
-    bubbleSort(umumptr,n);
+    bubbleSort(umum,n);
     //printArray(umumptr,n);
     
     return 0;
