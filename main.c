@@ -8,6 +8,51 @@ typedef struct dado{
     int chave;  //criando a estrutura dado
 } array;
 
+int particaoPivoLS(array* a, int li, int ls){
+
+    array aux, pivo;
+    int xi, xs;
+    xi = li, xs = ls;
+    pivo = a[xs]; //o pivo é o limite direito
+
+     while(xi < xs) {    //enquanto xi for menor que xs, isso é, enquanto eles não se superarem, o codigo ocorrerá
+        
+        while((a[xi].chave > pivo.chave) && (xi<ls)){
+        //se chave de xi é maior  o pivo, xi aponta para o proximo indice
+        xi++;
+        }
+        while((a[xs].chave <= pivo.chave) && (xs>li)){
+        //se a chave de xs é menor ou igual que o pivo, xs aponta para o indice anterior
+        xs--;
+        }
+        if(xi<xs){  //se eles não tiverem se cruzados vai ocorrer a substituição
+            
+            aux=a[xi];
+            a[xi]=a[xs];    //é usado o objeto auxiliar para realizar a troca
+            a[xs]=aux;          //é realizada a troca do item a esquerda que é menor do que o pivo com o item a direita que é maior que o pivo
+
+        }
+    }
+
+    aux = a[ls];    
+    a[ls]=a[xi];    //o pivo é colocado no local que deve estar, no meio de todos os valores
+    a[xi]=aux;
+
+    return xi;  //o indice do pivo é retornado na função
+
+}
+void quickSortPivoLS(array* receb, int li, int ls){
+
+if(li<ls){  //se os limites forem corretos o codigo será executado
+
+    int p;  //p salva o indice do pivo recebido da função acima.
+    p = particaoPivoLS(receb,li,ls);  //depois de receber o pivo, é executado o quicksort para cada filho restante dele
+    quickSortPivoLS(receb,li,p-1);
+    quickSortPivoLS(receb,p+1,ls);
+    }
+
+}
+
 int particao(array* receb, int li, int ls){
 
     array aux, pivo;   //cria 2 objetos de array que vao auxiliar
@@ -96,7 +141,7 @@ void bubbleSort(array* a, int qnt){
                 a[j] = a[j+1];
                 a[j+1] = temp; 
 
-                flag = 1;
+                flag = 1;   //utilização de flag para otimizar a função -> não percorre a array desneecssáriamente
             }
         }
 
@@ -135,7 +180,7 @@ array* gerarArray(int n, int tipo){
 
 int main(void){
 
-    int n = 10000;
+    int n = 1000;
     unsigned int seed = 22001640; 
     int tipo = 1;
 
@@ -148,13 +193,14 @@ int main(void){
     clock_t begin = clock();
 
     //bubbleSort(umum,n);
-    shellSort(umum,n);
+    //shellSort(umum,n);
     //quickSortPivo0(umum,0,n-1);
+    quickSortPivoLS(umum,0,n-1);
 
     clock_t end = clock();
     tempo_exec += (double)(end - begin)/CLOCKS_PER_SEC;
 
-    //printArray(umum,n);
+    printArray(umum,n);
     printf("\nTempo de execucao: %fs",tempo_exec);
     
     return 0;
