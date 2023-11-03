@@ -13,6 +13,43 @@ typedef struct dado{
     //ele troca os valores adjacentes, ele repete esse percurso tantas vezes que troca todos os valores adjacentes
     //e ordena a array inteira
 
+void quickSort(array* receb, int li, int ls){
+
+if(li>ls){
+
+    int p,i;
+    p = particao(receb,li,ls);
+    quickSort(receb,li,p-1);
+    quickSort(receb,p+1,ls);
+    }
+
+}
+
+array* particao(array* receb, int li, int ls){
+
+    array aux, pivo;
+    int xi, xs;
+    xi = li, xs = ls;
+    pivo = receb[xi]; //o pivo é o limite esquerdo
+
+    while(xi < xs) {
+
+        while((receb[xi].chave >= pivo.chave) && (xi<ls)){xi++;}
+        while((receb[xs].chave < pivo.chave) && (xs>li)){xs--;}
+        if(xi<xs){
+           aux=receb[xi];
+           receb[xi]=receb[xs];
+           receb[xs]=aux; 
+        }
+    }
+
+    aux = receb[li];    
+    receb[li]=receb[xs];
+    receb[xs]=aux;
+
+}
+
+
 void shellSort(array* a, int qnt ){
 
     int j,h;
