@@ -8,47 +8,50 @@ typedef struct dado{
     int chave;  //criando a estrutura dado
 } array;
 
+int particao(array* receb, int li, int ls){
 
-    //oq é o bubble sort? ele faz diversas passagens pela array e checa os valores adjacentes, se for necessário 
-    //ele troca os valores adjacentes, ele repete esse percurso tantas vezes que troca todos os valores adjacentes
-    //e ordena a array inteira
+    array aux, pivo;   //cria 2 objetos de array que vao auxiliar
+    int xi, xs;        //xs e xi são os indices para percorrer a array
+    xi = li, xs = ls;  //li = limite infeior | ls = limite superior
+    pivo = receb[xi]; //o pivo é o limite esquerdo  //pívo recebe o limite infeiror, ou seja, ele recebe o array0
 
-void quickSort(array* receb, int li, int ls){
+    while(xi < xs) {    //enquanto xi for menor que xs, isso é, enquanto eles não se superarem, o codigo ocorrerá
+        
+        while((receb[xi].chave >= pivo.chave) && (xi<ls)){
+        //se chave de xi é maior ou igual o pivo, xi aponta para o proximo indice
+        xi++;
+        }
+        while((receb[xs].chave < pivo.chave) && (xs>li)){
+        //se a chave de xs é menor que o pivo, xs aponta para o indice anterior
+        xs--;
+        }
+        if(xi<xs){  //se eles não tiverem se cruzados vai ocorrer a substituição
+            
+            aux=receb[xi];
+            receb[xi]=receb[xs];    //é usado o objeto auxiliar para realizar a troca
+            receb[xs]=aux;          //é realizada a troca do item a esquerda que é menor do que o pivo com o item a direita que é maior que o pivo
 
-if(li>ls){
-
-    int p,i;
-    p = particao(receb,li,ls);
-    quickSort(receb,li,p-1);
-    quickSort(receb,p+1,ls);
-    }
-
-}
-
-array* particao(array* receb, int li, int ls){
-
-    array aux, pivo;
-    int xi, xs;
-    xi = li, xs = ls;
-    pivo = receb[xi]; //o pivo é o limite esquerdo
-
-    while(xi < xs) {
-
-        while((receb[xi].chave >= pivo.chave) && (xi<ls)){xi++;}
-        while((receb[xs].chave < pivo.chave) && (xs>li)){xs--;}
-        if(xi<xs){
-           aux=receb[xi];
-           receb[xi]=receb[xs];
-           receb[xs]=aux; 
         }
     }
 
     aux = receb[li];    
-    receb[li]=receb[xs];
+    receb[li]=receb[xs];    //o pivo é colocado no local que deve estar, no meio de todos os valores
     receb[xs]=aux;
 
+    return xs;  //o indice do pivo é retornado na função
 }
 
+void quickSortPivo0(array* receb, int li, int ls){
+
+if(li<ls){  //se os limites forem corretos o codigo será executado
+
+    int p;  //p salva o indice do pivo recebido da função acima.
+    p = particao(receb,li,ls);  //depois de receber o pivo, é executado o quicksort para cada filho restante dele
+    quickSortPivo0(receb,li,p-1);
+    quickSortPivo0(receb,p+1,ls);
+    }
+
+}
 
 void shellSort(array* a, int qnt ){
 
@@ -126,38 +129,50 @@ void printArray(array *a, int qnt){
     
 }
 
+array* gerarArray(int n, int tipo){
+
+    array* aux =  (array*)malloc(n*sizeof(array));
+
+    if( tipo ==  1){
+    //gerando aleatoriamente o valor da array de 10000.
+    for(int i = 0; i < n ; i++){
+        aux[i].info = rand()+100;  //valor float maior que 100
+        aux[i].chave = rand();     //chave aleatoria int
+    }}
+
+    else if( tipo == 2){
+    for(int i = 0; i < n ; i++){
+        aux[0].chave = rand()%10000;
+        aux[i].info = rand()+100; //valor float
+        aux[i].chave = rand() + aux[i-1].chave; //chave aleator
+    }}
+
+    return aux;
+}
+
 int main(void){
 
     int n = 10000;
     unsigned int seed = 22001640; 
     int tipo = 1;
 
-    //declaração dos vetores
-    array* umum =  (array*)malloc(n*sizeof(array));
-
-
     srand(seed); 
-    //passando o valor da seed criada pelo tempo para a função srand
-    //todos os numeros random serão baseados nessa seed agr.
-
     printf("\nA seed que voce esta executando e: %d\n", seed); //printa o valor da seed.
 
-    if( tipo ==  1){
-    //gerando aleatoriamente o valor da array de 10000.
-    for(int i = 0; i < n ; i++){
-        umum[i].info = rand()+100;  //valor float maior que 100
-        umum[i].chave = rand();     //chave aleatoria int
-    }}
+    array* umum = gerarArray(n,tipo);
+    
+    double tempo_exec = 0.0;
+    clock_t begin = clock();
 
-    else if( tipo == 2){
-    for(int i = 0; i < n ; i++){
-        umum[0].chave = rand()%10000;
-        umum[i].info = rand()+100; //valor float
-        umum[i].chave = rand() + umum[i-1].chave; //chave aleator
-    }}
+    //bubbleSort(umum,n);
+    //shellSort(umum,n);
+    quickSortPivo0(umum,0,n-1);
 
-    shellSort(umum,n);
-    //printArray(umum,n);
+    clock_t end = clock();
+    tempo_exec += (double)(end - begin)/CLOCKS_PER_SEC;
+
+    printArray(umum,n);
+    printf("\nTempo de execucao: %fs",tempo_exec);
     
     return 0;
 }
