@@ -57,9 +57,6 @@ void shellSort(array* a, int qnt ){
 
     int j,h;
     array aux;
-
-    double tempo_exec = 0.0;
-    clock_t begin = clock();
     
     for(h = 1; h < qnt; h = 3 * h+1);
     while (h>0)
@@ -80,20 +77,12 @@ void shellSort(array* a, int qnt ){
         }
     }
 
-    clock_t end = clock();
-    tempo_exec += (double)(end - begin)/CLOCKS_PER_SEC;
-
-    printf("Tempo de execucao: %fs",tempo_exec);
-          
 }
 
 void bubbleSort(array* a, int qnt){
     int flag = 1;
 
     array temp; //objeto temp que será necessário para a execução 
-
-    double tempo_exec = 0.0;
-    clock_t begin = clock();
 
     for(int i = 0; i < qnt && flag == 1; i++){
 
@@ -112,12 +101,6 @@ void bubbleSort(array* a, int qnt){
         }
 
     }
-
-    clock_t end = clock();
-    tempo_exec += (double)(end - begin)/CLOCKS_PER_SEC;
-
-    printf("Tempo de execucao: %fs",tempo_exec);
-
 }
 
 void printArray(array *a, int qnt){
@@ -165,13 +148,13 @@ int main(void){
     clock_t begin = clock();
 
     //bubbleSort(umum,n);
-    //shellSort(umum,n);
-    quickSortPivo0(umum,0,n-1);
+    shellSort(umum,n);
+    //quickSortPivo0(umum,0,n-1);
 
     clock_t end = clock();
     tempo_exec += (double)(end - begin)/CLOCKS_PER_SEC;
 
-    printArray(umum,n);
+    //printArray(umum,n);
     printf("\nTempo de execucao: %fs",tempo_exec);
     
     return 0;
