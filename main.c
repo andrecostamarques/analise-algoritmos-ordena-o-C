@@ -8,6 +8,72 @@ typedef struct dado{
     int chave;  //criando a estrutura dado
 } array;
 
+
+int particao(array* receb, int li, int ls){
+
+    array aux, pivo;
+    int xi, xs;
+    xi = li, xs = ls;
+    pivo = receb[xi]; //o pivo é o limite esquerdo
+    printf("\nXi = %d, xs = %d, pivo = %d\n",xi, xs, pivo.chave);
+
+    while(xi < xs) {
+        
+        while((receb[xi].chave >= pivo.chave) && (xi<ls)){
+        printf("\nXi(%d) eh maior que %d entao:",receb[xi].chave,pivo.chave);
+        xi++;
+        printf("\nXi i++: xi = %d",xi);
+        printf(" --> xi agora aponta para %d",receb[xi].chave);}
+        while((receb[xs].chave < pivo.chave) && (xs>li)){
+        printf("\nXs(%d) eh menor que %d entao:",receb[xs].chave,pivo.chave);
+        xs--;
+        printf("\nXs--: xs = %d",xs);}
+        if(xi<xs){
+            
+            printf("\n\nXi(%d) eh menor que o pivo(%d) e xs(%d) eh maior que o pivo(%d), entao eles foram trocados",receb[xi].chave, pivo.chave, receb[xs].chave,pivo.chave);
+           aux=receb[xi];
+           receb[xi]=receb[xs];
+           receb[xs]=aux; 
+           printf("\nFoi realizada a troca de xi e xs, trocaram os valores %d, %d, dos indices %d, %d\n", receb[xi].chave, receb[xs].chave, xs,xi);
+           printf("\nA array esta assim agora:");
+           printf("\nInfo / Chave");
+    for(int i = 0; i < 5; i++){
+    printf("\n%.f - %d", receb[i].info, receb[i].chave);
+    }
+    printf("\n\n");
+        }
+    }
+
+    aux = receb[li];    
+    receb[li]=receb[xs];
+    receb[xs]=aux;
+
+    printf("\nO novo pivo foi colocado em seu lugar");
+    printf("\nO novo pivo fica em %d(%d)",xs,receb[xs].chave);
+
+    printf("\nInfo / Chave");
+    for(int i = 0; i < 5; i++){
+    printf("\n%.f - %d", receb[i].info, receb[i].chave);
+    }
+    return xs;
+}
+
+void quickSort(array* receb, int li, int ls){
+
+    ls--;
+
+if(li<ls){
+
+    int p;
+    printf("\nA execucao do quick vai comecar agora!");
+    p = particao(receb,li,ls);
+    printf("\n -------------- Primeira particao feita ----------------\n");
+    quickSort(receb,li,p-1);
+    quickSort(receb,p+1,ls);
+    }
+
+}
+
 int main(void){
 
     //declaração dos vetores
@@ -34,20 +100,19 @@ int main(void){
     // printf("\n%d", umdois[0].chave);
 
     array teste[5];
-    teste[0].chave = 0;
-    teste[1].chave = 1;
-    teste[2].chave = 2;
-    teste[3].chave = 3;
-    teste[4].chave = 4;
+    teste[0].info = 0;
+    teste[1].info = 1;
+    teste[2].info = 2;
+    teste[3].info = 3;
+    teste[4].info = 4;
 
-    teste[0].info = 7;
-    teste[1].info = 19;
-    teste[2].info = 1;
-    teste[3].info = 22;
-    teste[4].info = 13;
+    teste[0].chave = 7;
+    teste[1].chave = 19;
+    teste[2].chave = 1;
+    teste[3].chave = 22;
+    teste[4].chave = 13;
 
-    array temp;
-
+    array* testeptr = teste;
 
 
 
@@ -56,31 +121,7 @@ int main(void){
     //ele troca os valores adjacentes, ele repete esse percurso tantas vezes que troca todos os valores adjacentes
     //e ordena a array inteira
 
-    for(int i = 0; i < 5; i++){
-
-            printf("\nNova run maior\n");
-
-        for(int j = 0; j < 5-1; j++){
-
-                printf("Chave: %d/ ", teste[j].chave);
-                printf("Info: %.f/ \n", teste[j].info);
-
-
-            if(teste[j].info < teste[j+1].info){
-
-                printf("\nTroca realizada: de %d com %d\n",teste[j].chave, teste[j+1].chave);
-
-                
-
-                temp = teste[j];
-                teste[j] = teste[j+1];
-                teste[j+1] = temp;
-
-            }
-
-        }
-
-    }
+    quickSort(testeptr,0,5);
 
     printf("Info / Chave");
     for(int i = 0; i < 5; i++){
