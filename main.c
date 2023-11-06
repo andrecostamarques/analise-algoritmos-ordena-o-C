@@ -143,25 +143,25 @@ void quickSortPivoMeio(array* a, int li, int ls){
 
 void shellSort(array* a, int qnt ){
 
-    int j,h;
+    int i,j,h;
     array aux;
     
-    for(h = 1; h < qnt; h = 3 * h+1);
+    for(h = 1; h < qnt; h = 3*h +1);
     while (h>0)
     {
        h = (h-1) /3;
-       for (int i = h; i < qnt; i++){
+       for (i = h; i < qnt; i++){
         aux = a[i];
         j = i;
         
-            while (a[j-h].chave > aux.chave){
-                a[j] = a[j-h];
-                j = h;
-                if (j < h){
-                    break;
-                }         
-            }
-            a[j] = aux;
+        while (a[j-h].chave < aux.chave){
+            a[j] = a[j-h];
+            j -= h;
+            if (j < h){
+            break;
+            }         
+        }
+        a[j] = aux;
         }
     }
 
@@ -223,7 +223,7 @@ array* gerarArray(int n, int tipo){
 
 int main(void){
 
-    int n = 1000000;
+    int n = 10;
     unsigned int seed = 22001640; 
     int tipo = 1;
 
@@ -236,15 +236,15 @@ int main(void){
     clock_t begin = clock();
 
     //bubbleSort(umum,n);
-    //shellSort(umum,n);
+    shellSort(umum,n);
     //quickSortPivo0(umum,0,n-1);
     //quickSortPivo0(umum,0,n-1);
-    quickSortPivoMeio(umum,0,n-1);
+    //quickSortPivoMeio(umum,0,n-1);
 
     clock_t end = clock();
     tempo_exec += (double)(end - begin)/CLOCKS_PER_SEC;
 
-    //printArray(umum,n);
+    printArray(umum,n);
     printf("\nTempo de execucao: %fs",tempo_exec);
     
     return 0;
