@@ -142,26 +142,26 @@ void quickSortPivoMeio(array* a, int li, int ls){
 }
 
 void shellSort(array* a, int qnt ){
-
-    int i,j,h;
-    array aux;
+    // função que se utiluza saltos para fazer comparação entre os elementos do array
+    int i,j,h; // inicio os parametros que iram auxiliar nos saltos
+    array aux; // auxiliar que ira fazer a comparação entre os elementos
     
-    for(h = 1; h < qnt; h = 3*h +1);
-    while (h>0)
+    for(h = 1; h < qnt; h = 3*h +1); // inicia o valor do salto 
+    while (h>0) 
     {
        h = (h-1) /3;
-       for (i = h; i < qnt; i++){
+       for (i = h; i < qnt; i++){ // realiza os saltos e recebe o valor deles no auxiliar 
         aux = a[i];
         j = i;
         
-        while (a[j-h].chave < aux.chave){
-            a[j] = a[j-h];
+        while (a[j-h].chave < aux.chave){ //faz a comparação dos valores de acordo com o valor do salto definido no for anterior
+            a[j] = a[j-h]; // se o valor que é usado para percorrer for maior ele vai alocar ele para a traz
             j -= h;
             if (j < h){
             break;
             }         
         }
-        a[j] = aux;
+        a[j] = aux;// quando o valor verificado for maior q o auxiliar ele realiza a troca pois ordena de forma decrescente 
         }
     }
 
@@ -172,19 +172,20 @@ void bubbleSort(array* a, int qnt){
 
     array temp; //objeto temp que será necessário para a execução 
 
-    for(int i = 0; i < qnt && flag == 1; i++){
+    for(int i = 0; i < qnt && flag == 1; i++){  //percorre a array 
 
-        flag = 0;
+        flag = 0;   //seta a flag como 0, ou seja, não houve nenhuma troca
         
-        for(int j = 0; j < qnt-1; j++){
+        for(int j = 0; j < qnt-1; j++){ //percorra o item que está percorrido na array com o seu proxximo
 
-            if(a[j].chave < a[j+1].chave){
+            if(a[j].chave < a[j+1].chave){  //compara o item percorrido com o proximo da array
 
                 temp = a[j];
-                a[j] = a[j+1];
+                a[j] = a[j+1];  //se eles forem menores realizar a troca, senão percorrer a array continuamente
                 a[j+1] = temp; 
 
                 flag = 1;   //utilização de flag para otimizar a função -> não percorre a array desneecssáriamente
+                //seta a flag como 1, ou seja, teve alguma troca, ou seja, a array ainda não está organizada
             }
         }
 
@@ -223,7 +224,7 @@ array* gerarArray(int n, int tipo){
 
 int main(void){
 
-    int n = 10;
+    int n = 1000000;
     unsigned int seed = 22001640; 
     int tipo = 1;
 
@@ -244,7 +245,7 @@ int main(void){
     clock_t end = clock();
     tempo_exec += (double)(end - begin)/CLOCKS_PER_SEC;
 
-    printArray(umum,n);
+    //printArray(umum,n);
     printf("\nTempo de execucao: %fs",tempo_exec);
     
     return 0;
