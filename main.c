@@ -224,9 +224,9 @@ array* gerarArray(int n, int tipo){
 
 int main(void){
 
-    int n = 1000000;
-    unsigned int seed = 22001640; 
-    int tipo = 1;
+    int n = 1000000;                        //defina o tamanho da array
+    unsigned int seed = 22001640;           //defina a seed dos numeros random 
+    int tipo = 1;                           //defina o tipo da array
 
     srand(seed); 
     printf("\nA seed que voce esta executando e: %d\n", seed); //printa o valor da seed.
@@ -236,10 +236,13 @@ int main(void){
     double tempo_exec = 0.0;
     clock_t begin = clock();
 
+    //-================================== SELECIONE O SORT QUE QUISER ==================================-//
+
+
     //bubbleSort(umum,n);
     shellSort(umum,n);
-    //quickSortPivo0(umum,0,n-1);
-    //quickSortPivo0(umum,0,n-1);
+    //quickSortPivo0(umum,0,n-1);   
+    //quickSortPivo0(umum,0,n-1);   
     //quickSortPivoMeio(umum,0,n-1);
 
     clock_t end = clock();
