@@ -8,6 +8,57 @@ typedef struct dado{
     int chave;  //criando a estrutura dado
 } array;
 
+void merge(array vet[], array left[], array right[], int l_len, int r_len) {
+    int i = 0, j = 0, k = 0;
+
+    while (i < l_len && j < r_len) {
+        if (left[i].chave <= right[j].chave) {
+            vet[k] = left[i];
+            i++;
+        } else {
+            vet[k] = right[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < l_len) {
+        vet[k] = left[i];
+        i++;
+        k++;
+    }
+
+    while (j < r_len) {
+        vet[k] = right[j];
+        j++;
+        k++;
+    }
+}
+
+void mergeSort(array vet[], int len) {
+    if (len == 1) return;
+
+    int l_len = len / 2, r_len = len - len / 2;
+    array *left = (array *)malloc(l_len * sizeof(array));
+    array *right = (array *)malloc(r_len * sizeof(array));
+
+    for (int i = 0; i < l_len; i++) {
+        left[i] = vet[i];
+    }
+
+    for (int i = 0; i < r_len; i++) {
+        right[i] = vet[l_len + i];
+    }
+
+    mergeSort(left, l_len);
+    mergeSort(right, r_len);
+
+    merge(vet, left, right, l_len, r_len);
+
+    free(left);
+    free(right);
+}
+
 int particaoPivoLS(array* a, int li, int ls){
 
     array aux, pivo;
