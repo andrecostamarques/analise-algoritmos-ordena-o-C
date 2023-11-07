@@ -12,7 +12,7 @@ void merge(array vet[], array left[], array right[], int l_len, int r_len) {
     int i = 0, j = 0, k = 0;
 
     while (i < l_len && j < r_len) {
-        if (left[i].chave <= right[j].chave) {
+        if (left[i].chave >= right[j].chave) {
             vet[k] = left[i];
             i++;
         } else {
