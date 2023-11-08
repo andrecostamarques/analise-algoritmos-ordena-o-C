@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <string.h> 
 
 typedef struct dado{
     float info;
@@ -283,23 +284,32 @@ array* gerarArray(int n, int tipo){
 
 int main(void){
 
+    FILE *file;
+
+    file = fopen("data.csv", "w");
+
+    if(file == NULL){
+        printf("Error opening data file");
+        return 1;
+    }
+
     int vetores[5] = {10000, 50000, 100000, 500000, 1000000};
     results* arrayResultados = (results*)malloc(79*sizeof(results));
     unsigned int seed = 22001640;           //defina a seed dos numeros random 
     srand(seed);
     int m = 0;
 
-    for(int j = 0; j < 8; j++){
+    for(int j = 3; j < 5; j++){
         
         int sort = j;    //0 - 8 escolhe qual sort ele vai utilizar 
 
         for (int k = 0; k < 5; k++){
 
-            int n = vetores[k]; //defina o tamanho da array
+            int n = vetores[k]; //defina o tamanho da array gerada
             
-            for(int l = 0; l < 2; l++){
+            for(int l = 1; l < 3; l++){
 
-                int tipo = l;                    
+                int tipo = l; //define o tipo da array gerada           
                  
                 for(int i = 0; i < 10; i++){
 
@@ -307,7 +317,7 @@ int main(void){
 
                     array* umum = gerarArray(n,tipo);
                     
-                    double tempo_exec = 0.0;
+                    double tempo_exec = 0.0000000;
                     clock_t begin = clock();
 
                     switch (sort){
@@ -352,13 +362,30 @@ int main(void){
 
                     free(umum);
 
-                    printf("\nArray %d:Tempo de execucao: %fs do metodo %s, tipo %d, com %d elementos.",m,arrayResultados[m].tempos[i],arrayResultados[m].sort,arrayResultados[m].tipo,arrayResultados[m].tamanho);
+                    printf("\nArray %d:Tempo de execucao: %f s do metodo %s, tipo %d, com %d elementos.",m,arrayResultados[m].tempos[i],arrayResultados[m].sort,arrayResultados[m].tipo,arrayResultados[m].tamanho);
                 }
 
                 m++;
 
             }
         }
+    }
+
+    for(int i = 0; i < 20; i++){
+            fprintf(file,"%s,%d,%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
+            arrayResultados[i].sort,
+            arrayResultados[i].tipo,
+            arrayResultados[i].tamanho,
+            arrayResultados[i].tempos[0],
+            arrayResultados[i].tempos[1],
+            arrayResultados[i].tempos[2],
+            arrayResultados[i].tempos[3],
+            arrayResultados[i].tempos[4],
+            arrayResultados[i].tempos[5],
+            arrayResultados[i].tempos[6],
+            arrayResultados[i].tempos[7],
+            arrayResultados[i].tempos[8],
+            arrayResultados[i].tempos[9]);
     }
     
     return 0;
