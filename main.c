@@ -284,16 +284,16 @@ array* gerarArray(int n, int tipo){
 int main(void){
 
     int vetores[5] = {10000, 50000, 100000, 500000, 1000000};
-    results arrayResultados[79]; //iniciando a array de struct dos resultados
+    results* arrayResultados = (results*)malloc(79*sizeof(results));
     unsigned int seed = 22001640;           //defina a seed dos numeros random 
     srand(seed);
     int m = 0;
 
-    for(int j = 0; j < 7; j++){
+    for(int j = 0; j < 8; j++){
         
         int sort = j;    //0 - 8 escolhe qual sort ele vai utilizar 
 
-        for (int k = 0; k < 4; k++){
+        for (int k = 0; k < 5; k++){
 
             int n = vetores[k]; //defina o tamanho da array
             
