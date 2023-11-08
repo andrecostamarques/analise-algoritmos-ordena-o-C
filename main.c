@@ -10,8 +10,8 @@ typedef struct dado{
 
 typedef struct resultados{
     char sort[20];
-    char tipo;
-    char tamanho[7];
+    int tipo;
+    int tamanho;
     double tempos[10];
 } results;
 
@@ -283,7 +283,7 @@ array* gerarArray(int n, int tipo){
 
 int main(void){
 
-    int vetores[4] = {10000, 50000, 100000, 500000, 1000000};
+    int vetores[5] = {10000, 50000, 100000, 500000, 1000000};
     results arrayResultados[79]; //iniciando a array de struct dos resultados
     unsigned int seed = 22001640;           //defina a seed dos numeros random 
     srand(seed);
@@ -297,39 +297,43 @@ int main(void){
 
             int n = vetores[k]; //defina o tamanho da array
             
-            for(int l = 0; l < 1; l++){
+            for(int l = 0; l < 2; l++){
 
                 int tipo = l;                    
                  
-                printf("\nA seed que voce esta executando e: %d\n", seed); //printa o valor da seed.
-
-                array* umum = gerarArray(n,tipo);
-
                 for(int i = 0; i < 10; i++){
+
+                    printf("\nA seed que voce esta executando e: %d\n", seed); //printa o valor da seed.
+
+                    array* umum = gerarArray(n,tipo);
                     
                     double tempo_exec = 0.0;
                     clock_t begin = clock();
 
                     switch (sort){
-                        case 0: 
+                        case 0:
                         quickSortPivo0(umum,0,n-1);
-                        arrayResultados[m].sort = "quick0";
+                        strcpy(arrayResultados[m].sort, "quick0");
                         break;
                         case 1:
                         quickSortPivoMeio(umum,0,n-1);
-                        arrayResultados[m].sort = "quickM";
+                        strcpy(arrayResultados[m].sort, "quickM");
                         break;
                         case 2:
                         quickSortPivoLS(umum,0,n-1);
+                        strcpy(arrayResultados[m].sort, "quickLS");
                         break;
                         case 3:
                         shellSort(umum,n);
+                        strcpy(arrayResultados[m].sort, "shellSort");                       
                         break;
                         case 4:
                         mergeSort(umum,n);
+                        strcpy(arrayResultados[m].sort, "mergeSort");                        
                         break;
                         case 5:
                         bubbleSort(umum,n);
+                        strcpy(arrayResultados[m].sort, "bubbleSort");
                         break;
                         case 6:
                         //enzo vagabundo
@@ -342,16 +346,17 @@ int main(void){
                     clock_t end = clock();
                     tempo_exec += (double)(end - begin)/CLOCKS_PER_SEC;
 
-                    arrayResultados[i].sort = "quickSortPivo0";
-                    arrayResultados[i].tipo = tipo;
-                    arrayResultados[i].tamanho = n;
+                    arrayResultados[m].tipo = tipo;
+                    arrayResultados[m].tamanho = n;
+                    arrayResultados[m].tempos[i]=tempo_exec;
 
                     free(umum);
 
-                    //printArray(umum,n);
-                    printf("\nTempo de execucao: %fs",tempo_exec);
-
+                    printf("\nArray %d:Tempo de execucao: %fs do metodo %s, tipo %d, com %d elementos.",m,arrayResultados[m].tempos[i],arrayResultados[m].sort,arrayResultados[m].tipo,arrayResultados[m].tamanho);
                 }
+
+                m++;
+
             }
         }
     }
