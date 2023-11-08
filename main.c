@@ -317,7 +317,7 @@ int main(void){
 
                     array* umum = gerarArray(n,tipo);
                     
-                    double tempo_exec = 0.0000000;
+                    double tempo_exec = 0.0;
                     clock_t begin = clock();
 
                     switch (sort){
