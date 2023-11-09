@@ -303,13 +303,13 @@ int main(void){
         
         int sort = j;    //0 - 8 escolhe qual sort ele vai utilizar 
 
-        for (int k = 0; k < 5; k++){
+        for(int l = 1; l < 3; l++){
 
-            int n = vetores[k]; //defina o tamanho da array gerada
+            int tipo = l; //define o tipo da array gerada
             
-            for(int l = 1; l < 3; l++){
+            for (int k = 0; k < 5; k++){
 
-                int tipo = l; //define o tipo da array gerada           
+                int n = vetores[k]; //defina o tamanho da array gerada           
                  
                 for(int i = 0; i < 10; i++){
 
