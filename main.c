@@ -17,7 +17,7 @@ int main(void){
     srand(seed);
     int m = 0;
 
-    for(int j = 1; j < 6; j++){
+    for(int j = 2; j < 6; j++){
         
         int sort = j;    //0 - 8 escolhe qual sort ele vai utilizar 
 
@@ -93,7 +93,7 @@ int main(void){
 
 
     fprintf(file,"indice,metodo,tipo,tamanho,tempo1,tempo2,tempo3,tempo4,tempo5,tempo6,tempo7,tempo8,tempo9,tempo10\n");
-    for(int i = 0; i < 50; i++){
+    for(int i = 0; i < 40; i++){
             fprintf(file,"%d,%s,%d,%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
             i,
             arrayResultados[i].sort,
