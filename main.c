@@ -145,46 +145,6 @@ int particao(array* receb, int li, int ls){
     return xs;  //o indice do pivo é retornado na função
 }
 
-
-int particaoMeio(array *v, int LI, int LS) { //faz parte do quicksortmeio
-    int meio = (LI + LS) / 2;
-    array aux, pivo;
-    pivo = v[meio];
-    int e = LI, d = LS;
-    while (e < d) {
-        while ((e < LS) && (v[e].chave >= pivo.chave)) {
-            e++;
-        }
-        while ((d > LI)  && (v[d].chave <= pivo.chave)) {
-            d--;
-        }
-        if (e < d) {
-            aux = v[e];
-            v[e] = v[d];
-            v[d] = aux;
-        }
-    }
-    if(e>meio){
-        aux = v[meio];
-        v[meio] = v[d];
-        v[d]=aux;
-        return d;
-    }  else{
-        aux = v[meio];
-        v[meio] = v[e];
-        v[e] = aux;
-        return e;
-    }
-}
-void quickSortPivoMeio(array *v, int LI, int LS) {
-    if (LI < LS) {
-        int p;
-        p = particaoMeio(v, LI, LS);
-        quickSortPivoMeio(v, LI, p - 1);
-        quickSortPivoMeio(v, p + 1, LS);
-    }
-}
-
 void quickSortPivo0(array* receb, int li, int ls){
 
 if(li<ls){  //se os limites forem corretos o codigo será executado
@@ -196,6 +156,47 @@ if(li<ls){  //se os limites forem corretos o codigo será executado
     }
 
 }
+
+
+int particaoMeio(array *v, int LI, int LS) { //faz parte do quicksortmeio
+    int meio = (LI + LS) / 2;
+    array aux, pivo;
+    pivo = v[meio];
+    int xi = LI, xs = LS;
+    while (xi < xs) {
+        while ((xi < LS) && (v[xi].chave >= pivo.chave)) {
+            xi++;
+        }
+        while ((xs > LI)  && (v[xs].chave <= pivo.chave)) {
+            xs--;
+        }
+        if (xi < xs) {
+            aux = v[xi];
+            v[xi] = v[xs];
+            v[xs] = aux;
+        }
+    }
+    if(xi>meio){
+        aux = v[meio];
+        v[meio] = v[xs];
+        v[xs]=aux;
+        return xs;
+    }  else{
+        aux = v[meio];
+        v[meio] = v[xi];
+        v[xi] = aux;
+        return xi;
+    }
+}
+void quickSortPivoMeio(array *v, int LI, int LS) {
+    if (LI < LS) {
+        int p;
+        p = particaoMeio(v, LI, LS);
+        quickSortPivoMeio(v, LI, p - 1);
+        quickSortPivoMeio(v, p + 1, LS);
+    }
+}
+
 
 void shellSort(array* a, int qnt ){
     // função que se utiluza saltos para fazer comparação entre os elementos do array
