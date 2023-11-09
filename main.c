@@ -16,6 +16,39 @@ void insertionsort(int *vet, int n){
     }
 }
 
+void troca(int *a, int *b) {
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
+void heapify(int arr[], int n, int i) {
+    int menor = i;
+    int esq = 2*i + 1;
+    int dir = 2*i + 2;
+
+    if (esq < n && arr[esq] < arr[menor])
+        menor = esq;
+
+    if (dir < n && arr[dir] < arr[menor])
+        menor = dir;
+
+    if (menor != i) {
+        troca(&arr[i], &arr[menor]);
+        heapify(arr, n, menor);
+    }
+}
+
+void heapSort(int arr[], int n) {
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(arr, n, i);
+
+    for (int i=n-1; i>=0; i--) {
+        troca(&arr[0], &arr[i]);
+        heapify(arr, i, 0);
+    }
+}
+
 
 
 void merge(array vet[], array left[], array right[], int l_len, int r_len) {
