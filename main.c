@@ -8,44 +8,44 @@ typedef struct dado{
     int chave;  //criando a estrutura dado
 } array;
 
-void insertionsort(int *vet, int n){
+void insertionsort(array* a, int n){
     int i, j, k;
     for(i = 1; i < n; i++){
-        for(j = i - 1, k = vet[i]; j >= 0 && vet[j] < k; vet[j + 1] = vet[j], j--);
-        vet[j + 1] = k;
+        for(j = i - 1, k = a[i].chave; j >= 0 && a[j].chave < k; a[j + 1].chave = a[j].chave, j--);
+        a[j + 1].chave = k;
     }
 }
 
-void troca(int *a, int *b) {
-    int t = *a;
-    *a = *b;
-    *b = t;
-}
-
-void heapify(int arr[], int n, int i) {
+void heapify(array* a, int n, int i) {
+    array aux;
     int menor = i;
     int esq = 2*i + 1;
     int dir = 2*i + 2;
 
-    if (esq < n && arr[esq] < arr[menor])
+    if (esq < n && a[esq].chave < a[menor].chave)
         menor = esq;
 
-    if (dir < n && arr[dir] < arr[menor])
+    if (dir < n && a[dir].chave < a[menor].chave)
         menor = dir;
 
     if (menor != i) {
-        troca(&arr[i], &arr[menor]);
-        heapify(arr, n, menor);
+        aux = a[i];
+        a[i] = a[menor];
+        a[menor]=aux;
+        heapify(a, n, menor);
     }
 }
 
-void heapSort(int arr[], int n) {
+void heapSort(array* a, int n) {
+    array aux;
     for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(arr, n, i);
+        heapify(a, n, i);
 
     for (int i=n-1; i>=0; i--) {
-        troca(&arr[0], &arr[i]);
-        heapify(arr, i, 0);
+        aux = a[0];
+        a[0] = a[i];
+        a[i]=aux;
+        heapify(a, i, 0);
     }
 }
 
@@ -333,7 +333,9 @@ int main(void){
     //shellSort(umum,n);
     //quickSortPivo0(umum,0,n-1);   
     //quickSortPivo0(umum,0,n-1);   
-    quickSortPivoMeio(umum,0,n-1);
+    //quickSortPivoMeio(umum,0,n-1);
+    //heapSort(umum,n);
+    //insertionsort(umum,n);
 
     clock_t end = clock();
     tempo_exec += (double)(end - begin)/CLOCKS_PER_SEC;
