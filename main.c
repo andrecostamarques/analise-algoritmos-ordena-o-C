@@ -16,8 +16,6 @@ void insertionsort(int *vet, int n){
     }
 }
 
-
-
 void merge(array vet[], array left[], array right[], int l_len, int r_len) {
     int i = 0, j = 0, k = 0;
 
