@@ -8,6 +8,16 @@ typedef struct dado{
     int chave;  //criando a estrutura dado
 } array;
 
+void insertionsort(int *vet, int n){
+    int i, j, k;
+    for(i = 1; i < n; i++){
+        for(j = i - 1, k = vet[i]; j >= 0 && vet[j] < k; vet[j + 1] = vet[j], j--);
+        vet[j + 1] = k;
+    }
+}
+
+
+
 void merge(array vet[], array left[], array right[], int l_len, int r_len) {
     int i = 0, j = 0, k = 0;
 
