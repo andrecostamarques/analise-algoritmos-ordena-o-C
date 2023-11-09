@@ -137,6 +137,46 @@ int particao(array* receb, int li, int ls){
     return xs;  //o indice do pivo é retornado na função
 }
 
+
+int particaoMeio(array *v, int LI, int LS) { //faz parte do quicksortmeio
+    int meio = (LI + LS) / 2;
+    array aux, pivo;
+    pivo = v[meio];
+    int e = LI, d = LS;
+    while (e < d) {
+        while ((e < LS) && (v[e].chave >= pivo.chave)) {
+            e++;
+        }
+        while ((d > LI)  && (v[d].chave <= pivo.chave)) {
+            d--;
+        }
+        if (e < d) {
+            aux = v[e];
+            v[e] = v[d];
+            v[d] = aux;
+        }
+    }
+    if(e>meio){
+        aux = v[meio];
+        v[meio] = v[d];
+        v[d]=aux;
+        return d;
+    }  else{
+        aux = v[meio];
+        v[meio] = v[e];
+        v[e] = aux;
+        return e;
+    }
+}
+void quickSortPivoMeio(array *v, int LI, int LS) {
+    if (LI < LS) {
+        int p;
+        p = particaoMeio(v, LI, LS);
+        quickSortPivoMeio(v, LI, p - 1);
+        quickSortPivoMeio(v, p + 1, LS);
+    }
+}
+
 void quickSortPivo0(array* receb, int li, int ls){
 
 if(li<ls){  //se os limites forem corretos o codigo será executado
@@ -145,49 +185,6 @@ if(li<ls){  //se os limites forem corretos o codigo será executado
     p = particao(receb,li,ls);  //depois de receber o pivo, é executado o quicksort para cada filho restante dele
     quickSortPivo0(receb,li,p-1);
     quickSortPivo0(receb,p+1,ls);
-    }
-
-}
-
-void quickSortPivoMeio(array* a, int li, int ls){
-    //essa função não usa o método de partição e utiliza uma comparação
-
-    array aux, pivo;   //cria 2 objetos de array que vao auxiliar
-    int xi, xs;        //xs e xi são os indices para percorrer a array
-    xi = li, xs = ls;  //li = limite infeior | ls = limite superior
-    pivo = a[(li + ls)/2];
-
-
-    while(xi<xs){
-
-    while((a[xi].chave > pivo.chave) && (xi<ls)){
-        //se chave de xi é maior ou igual o pivo, xi aponta para o proximo indice
-        xi++;
-        }
-    while((a[xs].chave < pivo.chave) && (xs>li)){
-        //se a chave de xs é menor que o pivo, xs aponta para o indice anterior
-        xs--;
-        }
-    if(xi<=xs){  //se eles não tiverem se cruzados vai ocorrer a substituição
-            
-            aux=a[xi];
-            a[xi]=a[xs];    //é usado o objeto auxiliar para realizar a troca
-            a[xs]=aux;          //é realizada a troca do item a esquerda que é menor do que o pivo com o item a direita que é maior que o pivo
-            xi++;
-            xs--;              //a maior diferença desse pivo para os outros é justamente a modificação dos valores de xs e xi após a mudança
-        }
-
-        //outra modificação é que o pivo não tem que ser trocado, o pivo novo é o xi e o xs, o povo será trocado de lugar ao longo do codigo
-
-    }   //xi tem que ser menor que xs
-    
-    //como é necessário xi e xs o código executa somente uma função por conta do retorno dos dois 
-
-    if(li < xs){    //checando se existe elemento na array pra chamar essa função   //se o li não chegar até o xs execute isso
-        quickSortPivoMeio(a,li,xs); //xs é o novo superior
-    }
-    if(xi < ls){    //checando se existe elemento na array pra chamar essa função   //se xi não chegar em ls execute isso também
-        quickSortPivoMeio(a,xi,ls); //xi é o novo inferior
     }
 
 }
@@ -275,7 +272,7 @@ array* gerarArray(int n, int tipo){
 
 int main(void){
 
-    int n = 1000000;                        //defina o tamanho da array
+    int n = 1000;                        //defina o tamanho da array
     unsigned int seed = 22001640;           //defina a seed dos numeros random 
     int tipo = 1;                           //defina o tipo da array
 
@@ -291,15 +288,15 @@ int main(void){
 
 
     //bubbleSort(umum,n);
-    shellSort(umum,n);
+    //shellSort(umum,n);
     //quickSortPivo0(umum,0,n-1);   
     //quickSortPivo0(umum,0,n-1);   
-    //quickSortPivoMeio(umum,0,n-1);
+    quickSortPivoMeio(umum,0,n-1);
 
     clock_t end = clock();
     tempo_exec += (double)(end - begin)/CLOCKS_PER_SEC;
 
-    //printArray(umum,n);
+    printArray(umum,n);
     printf("\nTempo de execucao: %fs",tempo_exec);
     
     return 0;

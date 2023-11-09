@@ -174,6 +174,51 @@ if(li<ls){  //se os limites forem corretos o codigo será executado
 
 }
 
+/*void quickSortPivoMeio(array* a, int li, int ls){
+    //essa função não usa o método de partição e utiliza uma comparação
+
+    array aux, pivo;   //cria 2 objetos de array que vao auxiliar
+    int xi, xs;        //xs e xi são os indices para percorrer a array
+    xi = li, xs = ls;  //li = limite infeior | ls = limite superior
+    pivo = a[(li + ls)/2];
+
+
+    while(xi<xs){
+
+    while((a[xi].chave > pivo.chave) && (xi<ls)){
+        //se chave de xi é maior ou igual o pivo, xi aponta para o proximo indice
+        xi++;
+        }
+    while((a[xs].chave < pivo.chave) && (xs>li)){
+        //se a chave de xs é menor que o pivo, xs aponta para o indice anterior
+        xs--;
+        }
+    if(xi<=xs){  //se eles não tiverem se cruzados vai ocorrer a substituição
+            
+            aux=a[xi];
+            a[xi]=a[xs];    //é usado o objeto auxiliar para realizar a troca
+            a[xs]=aux;          //é realizada a troca do item a esquerda que é menor do que o pivo com o item a direita que é maior que o pivo
+            xi++;
+            xs--;              //a maior diferença desse pivo para os outros é justamente a modificação dos valores de xs e xi após a mudança
+        }
+
+        //outra modificação é que o pivo não tem que ser trocado, o pivo novo é o xi e o xs, o povo será trocado de lugar ao longo do codigo
+
+    }   //xi tem que ser menor que xs
+    
+    //como é necessário xi e xs o código executa somente uma função por conta do retorno dos dois 
+
+    if(li < xs){    //checando se existe elemento na array pra chamar essa função   //se o li não chegar até o xs execute isso
+        quickSortPivoMeio(a,li,xs); //xs é o novo superior
+    }
+    if(xi < ls){    //checando se existe elemento na array pra chamar essa função   //se xi não chegar em ls execute isso também
+        quickSortPivoMeio(a,xi,ls); //xi é o novo inferior
+    }
+
+}
+*/
+
+
 int main(void){
 
     //declaração dos vetores
