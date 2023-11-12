@@ -136,7 +136,7 @@ int particaoPivoLS(array* a, int li, int ls){
 
     aux = a[ls];    
     a[ls]=a[xi];    //o pivo é colocado no local que deve estar, no meio de todos os valores
-    a[xi]=aux;
+    a[xi]=aux;    
 
     return xi;  //o indice do pivo é retornado na função
 
