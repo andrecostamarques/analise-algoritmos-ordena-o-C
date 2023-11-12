@@ -11,7 +11,7 @@ int main(void){
         return 1;
     }
 
-    int vetores[5] = {10000, 50000, 100000, 500000, 1000000};
+    int vetores[5] = {1000000, 2000000, 3000000, 5000000, 10000000};
     results* arrayResultados = (results*)malloc(79*sizeof(results));
     unsigned int seed = 22001640;           //defina a seed dos numeros random 
     srand(seed);
@@ -69,7 +69,7 @@ int main(void){
                         break;
                         case 7:
                         insertionSort(umum,n);
-                        strcpy(arrayResultados[m].sort, "isnertionSort");
+                        strcpy(arrayResultados[m].sort, "insertionSort");
                         break;
                     }
 

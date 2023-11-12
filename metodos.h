@@ -117,11 +117,11 @@ int particaoPivoLS(array* a, int li, int ls){
 
      while(xi < xs) {    //enquanto xi for menor que xs, isso é, enquanto eles não se superarem, o codigo ocorrerá
         
-        while((a[xi].chave > pivo.chave) && (xi<ls)){
+        while ((xi < ls) && (a[xi].chave > pivo.chave)) {
         //se chave de xi é maior  o pivo, xi aponta para o proximo indice
         xi++;
         }
-        while((a[xs].chave <= pivo.chave) && (xs>li)){
+        while ((xs > li)  && (a[xs].chave <= pivo.chave)) {
         //se a chave de xs é menor ou igual que o pivo, xs aponta para o indice anterior
         xs--;
         }
@@ -162,11 +162,11 @@ int particao(array* receb, int li, int ls){
 
     while(xi < xs) {    //enquanto xi for menor que xs, isso é, enquanto eles não se superarem, o codigo ocorrerá
         
-        while((receb[xi].chave >= pivo.chave) && (xi<ls)){
+        while ((xi < ls) && (receb[xi].chave >= pivo.chave)) {
         //se chave de xi é maior ou igual o pivo, xi aponta para o proximo indice
         xi++;
         }
-        while((receb[xs].chave < pivo.chave) && (xs>li)){
+        while ((xs > li)  && (receb[xs].chave < pivo.chave)) {
         //se a chave de xs é menor que o pivo, xs aponta para o indice anterior
         xs--;
         }
