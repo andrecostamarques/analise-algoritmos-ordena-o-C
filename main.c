@@ -109,11 +109,11 @@ int particaoPivoLS(array* a, int li, int ls){
 
      while(xi < xs) {    //enquanto xi for menor que xs, isso é, enquanto eles não se superarem, o codigo ocorrerá
         
-        while((a[xi].chave > pivo.chave) && (xi<ls)){
+        while ((xi < ls) && (a[xi].chave > pivo.chave)) {
         //se chave de xi é maior  o pivo, xi aponta para o proximo indice
         xi++;
         }
-        while((a[xs].chave <= pivo.chave) && (xs>li)){
+        while ((xs > li)  && (a[xs].chave <= pivo.chave)) {
         //se a chave de xs é menor ou igual que o pivo, xs aponta para o indice anterior
         xs--;
         }
@@ -128,7 +128,7 @@ int particaoPivoLS(array* a, int li, int ls){
 
     aux = a[ls];    
     a[ls]=a[xi];    //o pivo é colocado no local que deve estar, no meio de todos os valores
-    a[xi]=aux;
+    a[xi]=aux;    
 
     return xi;  //o indice do pivo é retornado na função
 
@@ -154,11 +154,11 @@ int particao(array* receb, int li, int ls){
 
     while(xi < xs) {    //enquanto xi for menor que xs, isso é, enquanto eles não se superarem, o codigo ocorrerá
         
-        while((receb[xi].chave >= pivo.chave) && (xi<ls)){
+        while ((xi < ls) && (receb[xi].chave >= pivo.chave)) {
         //se chave de xi é maior ou igual o pivo, xi aponta para o proximo indice
         xi++;
         }
-        while((receb[xs].chave < pivo.chave) && (xs>li)){
+        while ((xs > li)  && (receb[xs].chave < pivo.chave)) {
         //se a chave de xs é menor que o pivo, xs aponta para o indice anterior
         xs--;
         }
@@ -189,7 +189,6 @@ if(li<ls){  //se os limites forem corretos o codigo será executado
     }
 
 }
-
 
 int particaoMeio(array *v, int LI, int LS) { //faz parte do quicksortmeio
     int meio = (LI + LS) / 2;
@@ -314,9 +313,9 @@ array* gerarArray(int n, int tipo){
 
 int main(void){
 
-    int n = 1000;                        //defina o tamanho da array
+    int n = 1000000;                        //defina o tamanho da array
     unsigned int seed = 22001640;           //defina a seed dos numeros random 
-    int tipo = 1;                           //defina o tipo da array
+    int tipo = 2;                           //defina o tipo da array
 
     srand(seed); 
     printf("\nA seed que voce esta executando e: %d\n", seed); //printa o valor da seed.
@@ -332,7 +331,7 @@ int main(void){
     //bubbleSort(umum,n);
     //shellSort(umum,n);
     //quickSortPivo0(umum,0,n-1);   
-    //quickSortPivo0(umum,0,n-1);   
+    quickSortPivoLS(umum,0,n-1);   
     //quickSortPivoMeio(umum,0,n-1);
     //heapSort(umum,n);
     //insertionsort(umum,n);
@@ -340,7 +339,7 @@ int main(void){
     clock_t end = clock();
     tempo_exec += (double)(end - begin)/CLOCKS_PER_SEC;
 
-    printArray(umum,n);
+    //printArray(umum,n);
     printf("\nTempo de execucao: %fs",tempo_exec);
     
     return 0;
