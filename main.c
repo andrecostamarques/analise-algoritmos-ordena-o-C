@@ -17,7 +17,7 @@ int main(void){
     srand(seed);
     int m = 0;
 
-    for(int j = 0; j < 6; j++){
+    for(int j = 0; j < 8; j++){
         
         int sort = j;    //0 - 8 escolhe qual sort ele vai utilizar 
 
@@ -26,7 +26,6 @@ int main(void){
             int tipo = l; //define o tipo da array gerada
             
             for (int k = 0; k < 5; k++){
-
                 int n = vetores[k]; //defina o tamanho da array gerada           
                  
                 for(int i = 0; i < 10; i++){
