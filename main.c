@@ -92,7 +92,7 @@ int main(void){
 
 
     fprintf(file,"indice,metodo,tipo,tamanho,tempo1,tempo2,tempo3,tempo4,tempo5,tempo6,tempo7,tempo8,tempo9,tempo10\n");
-    for(int i = 0; i < 60; i++){
+    for(int i = 0; i < 80; i++){
             fprintf(file,"%d,%s,%d,%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
             i,
             arrayResultados[i].sort,
