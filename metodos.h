@@ -4,19 +4,19 @@
 #include <time.h>
 #include <string.h> 
 
-typedef struct dado{
+typedef struct dado{    // estrutura de dados
     float info;
-    int chave;  //criando a estrutura dado
+    int chave;  
 } array;
 
-typedef struct resultados{
+typedef struct resultados{  //estrutura dos resultados
     char sort[20];
     int tipo;
     int tamanho;
     double tempos[10];
 } results;
 
-void insertionSort(array* a, int n){
+void insertionSort(array* a, int n){    //insertion sort
     int i, j, k;
     for(i = 1; i < n; i++){
         for(j = i - 1, k = a[i].chave; j >= 0 && a[j].chave < k; a[j + 1].chave = a[j].chave, j--);
@@ -24,7 +24,7 @@ void insertionSort(array* a, int n){
     }
 }
 
-void heapify(array* a, int n, int i) {
+void heapify(array* a, int n, int i) {  //auxiliar do heap sort
     array aux;
     int menor = i;
     int esq = 2*i + 1;
@@ -44,7 +44,7 @@ void heapify(array* a, int n, int i) {
     }
 }
 
-void heapSort(array* a, int n) {
+void heapSort(array* a, int n) {    //heap sort
     array aux;
     for (int i = n / 2 - 1; i >= 0; i--)
         heapify(a, n, i);
@@ -57,7 +57,7 @@ void heapSort(array* a, int n) {
     }
 }
 
-void merge(array vet[], array left[], array right[], int l_len, int r_len) {
+void merge(array vet[], array left[], array right[], int l_len, int r_len) {    //auxiliar do merge sort
     int i = 0, j = 0, k = 0;
 
     while (i < l_len && j < r_len) {
@@ -84,7 +84,7 @@ void merge(array vet[], array left[], array right[], int l_len, int r_len) {
     }
 }
 
-void mergeSort(array vet[], int len) {
+void mergeSort(array vet[], int len) {  //merge sort
     if (len == 1) return;
 
     int l_len = len / 2, r_len = len - len / 2;
@@ -108,90 +108,89 @@ void mergeSort(array vet[], int len) {
     free(right);
 }
 
-int particaoPivoLS(array* a, int li, int ls){
+int particaoPivoLS(array* a, int li, int ls){   //auxiliar do LS
 
     array aux, pivo;
     int xi, xs;
     xi = li, xs = ls;
-    pivo = a[xs]; //o pivo é o limite direito
+    pivo = a[xs]; 
 
-     while(xi < xs) {    //enquanto xi for menor que xs, isso é, enquanto eles não se superarem, o codigo ocorrerá
+     while(xi < xs) {    
         
         while ((xi < ls) && (a[xi].chave > pivo.chave)) {
-        //se chave de xi é maior  o pivo, xi aponta para o proximo indice
         xi++;
         }
         while ((xs > li)  && (a[xs].chave <= pivo.chave)) {
-        //se a chave de xs é menor ou igual que o pivo, xs aponta para o indice anterior
         xs--;
         }
-        if(xi<xs){  //se eles não tiverem se cruzados vai ocorrer a substituição
+        if(xi<xs){  
             
             aux=a[xi];
-            a[xi]=a[xs];    //é usado o objeto auxiliar para realizar a troca
-            a[xs]=aux;          //é realizada a troca do item a esquerda que é menor do que o pivo com o item a direita que é maior que o pivo
+            a[xi]=a[xs];    
+            a[xs]=aux;          
 
         }
     }
 
     aux = a[ls];    
-    a[ls]=a[xi];    //o pivo é colocado no local que deve estar, no meio de todos os valores
+    a[ls]=a[xi];    
     a[xi]=aux;    
 
-    return xi;  //o indice do pivo é retornado na função
+    return xi; 
 
 }
-void quickSortPivoLS(array* receb, int li, int ls){
 
-if(li<ls){  //se os limites forem corretos o codigo será executado
+void quickSortPivoLS(array* receb, int li, int ls){ //quicksortLS
 
-    int p;  //p salva o indice do pivo recebido da função acima.
-    p = particaoPivoLS(receb,li,ls);  //depois de receber o pivo, é executado o quicksort para cada filho restante dele
+if(li<ls){  
+
+    int p;  
+    p = particaoPivoLS(receb,li,ls);  
     quickSortPivoLS(receb,li,p-1);
     quickSortPivoLS(receb,p+1,ls);
     }
 
 }
 
-int particao(array* receb, int li, int ls){
+int particao(array* receb, int li, int ls){ //auxiliar quick0
 
-    array aux, pivo;   //cria 2 objetos de array que vao auxiliar
-    int xi, xs;        //xs e xi são os indices para percorrer a array
-    xi = li, xs = ls;  //li = limite infeior | ls = limite superior
-    pivo = receb[xi]; //o pivo é o limite esquerdo  //pívo recebe o limite infeiror, ou seja, ele recebe o array0
+    array aux, pivo;   
+    int xi, xs;        
+    xi = li, xs = ls;  
+    pivo = receb[xi]; 
 
-    while(xi < xs) {    //enquanto xi for menor que xs, isso é, enquanto eles não se superarem, o codigo ocorrerá
+    while(xi < xs) {    
         
         while ((xi < ls) && (receb[xi].chave >= pivo.chave)) {
-        //se chave de xi é maior ou igual o pivo, xi aponta para o proximo indice
         xi++;
         }
+
         while ((xs > li)  && (receb[xs].chave < pivo.chave)) {
-        //se a chave de xs é menor que o pivo, xs aponta para o indice anterior
         xs--;
         }
-        if(xi<xs){  //se eles não tiverem se cruzados vai ocorrer a substituição
+
+        if(xi<xs){  
             
             aux=receb[xi];
-            receb[xi]=receb[xs];    //é usado o objeto auxiliar para realizar a troca
-            receb[xs]=aux;          //é realizada a troca do item a esquerda que é menor do que o pivo com o item a direita que é maior que o pivo
+            receb[xi]=receb[xs];    
+            receb[xs]=aux;         
 
         }
     }
 
     aux = receb[li];    
-    receb[li]=receb[xs];    //o pivo é colocado no local que deve estar, no meio de todos os valores
+    receb[li]=receb[xs];   
     receb[xs]=aux;
 
-    return xs;  //o indice do pivo é retornado na função
+    return xs; 
 }
 
-void quickSortPivo0(array* receb, int li, int ls){
+void quickSortPivo0(array* receb, int li, int ls){   //quicksort0
 
-if(li<ls){  //se os limites forem corretos o codigo será executado
+if(li<ls){  
 
-    int p;  //p salva o indice do pivo recebido da função acima.
-    p = particao(receb,li,ls);  //depois de receber o pivo, é executado o quicksort para cada filho restante dele
+    int p;  
+    p = particao(receb,li,ls);  
     quickSortPivo0(receb,li,p-1);
     quickSortPivo0(receb,p+1,ls);
     }
@@ -199,7 +198,7 @@ if(li<ls){  //se os limites forem corretos o codigo será executado
 }
 
 
-int particaoMeio(array *v, int LI, int LS) { //faz parte do quicksortmeio
+int particaoMeio(array *v, int LI, int LS) { //auxliar meio
     int meio = (LI + LS) / 2;
     array aux, pivo;
     pivo = v[meio];
@@ -229,7 +228,7 @@ int particaoMeio(array *v, int LI, int LS) { //faz parte do quicksortmeio
         return xi;
     }
 }
-void quickSortPivoMeio(array *v, int LI, int LS) {
+void quickSortPivoMeio(array *v, int LI, int LS) {  //quicksort meio
     if (LI < LS) {
         int p;
         p = particaoMeio(v, LI, LS);
@@ -239,58 +238,58 @@ void quickSortPivoMeio(array *v, int LI, int LS) {
 }
 
 
-void shellSort(array* a, int qnt ){
-    // função que se utiluza saltos para fazer comparação entre os elementos do array
-    int i,j,h; // inicio os parametros que iram auxiliar nos saltos
-    array aux; // auxiliar que ira fazer a comparação entre os elementos
+void shellSort(array* a, int qnt ){ //shellsort
+  
+    int i,j,h; 
+    array aux; 
     
-    for(h = 1; h < qnt; h = 3*h +1); // inicia o valor do salto 
+    for(h = 1; h < qnt; h = 3*h +1); 
     while (h>0) 
     {
        h = (h-1) /3;
-       for (i = h; i < qnt; i++){ // realiza os saltos e recebe o valor deles no auxiliar 
+       for (i = h; i < qnt; i++){ 
         aux = a[i];
         j = i;
         
-        while (a[j-h].chave < aux.chave){ //faz a comparação dos valores de acordo com o valor do salto definido no for anterior
-            a[j] = a[j-h]; // se o valor que é usado para percorrer for maior ele vai alocar ele para a traz
+        while (a[j-h].chave < aux.chave){ 
+            a[j] = a[j-h]; 
             j -= h;
             if (j < h){
             break;
             }         
         }
-        a[j] = aux;// quando o valor verificado for maior q o auxiliar ele realiza a troca pois ordena de forma decrescente 
+        a[j] = aux;
         }
     }
 
 }
 
-void bubbleSort(array* a, int qnt){
+void bubbleSort(array* a, int qnt){ //bubble sort
     int flag = 1;
 
-    array temp; //objeto temp que será necessário para a execução 
+    array temp;  
 
-    for(int i = 0; i < qnt && flag == 1; i++){  //percorre a array 
+    for(int i = 0; i < qnt && flag == 1; i++){  
 
-        flag = 0;   //seta a flag como 0, ou seja, não houve nenhuma troca
+        flag = 0;   
         
-        for(int j = 0; j < qnt-1; j++){ //percorra o item que está percorrido na array com o seu proxximo
+        for(int j = 0; j < qnt-1; j++){ 
 
-            if(a[j].chave < a[j+1].chave){  //compara o item percorrido com o proximo da array
+            if(a[j].chave < a[j+1].chave){  
 
                 temp = a[j];
-                a[j] = a[j+1];  //se eles forem menores realizar a troca, senão percorrer a array continuamente
+                a[j] = a[j+1];  
                 a[j+1] = temp; 
 
-                flag = 1;   //utilização de flag para otimizar a função -> não percorre a array desneecssáriamente
-                //seta a flag como 1, ou seja, teve alguma troca, ou seja, a array ainda não está organizada
+                flag = 1;   
+
             }
         }
 
     }
 }
 
-void printArray(array *a, int qnt){
+void printArray(array *a, int qnt){ //funcao de printar array
 
     printf("\nInfo / Chave");
     for(int i = 0; i < qnt; i++){
@@ -299,22 +298,22 @@ void printArray(array *a, int qnt){
     
 }
 
-array* gerarArray(int n, int tipo){
+array* gerarArray(int n, int tipo){ //funcao de gerar array
 
     array* aux =  (array*)malloc(n*sizeof(array));
 
     if( tipo ==  1){
-    //gerando aleatoriamente o valor da array de 10000.
+
     for(int i = 0; i < n ; i++){
-        aux[i].info = rand()+100;  //valor float maior que 100
-        aux[i].chave = rand();     //chave aleatoria int
+        aux[i].info = rand()+100;  
+        aux[i].chave = rand();     
     }}
 
     else if( tipo == 2){
     for(int i = 0; i < n ; i++){
         aux[0].chave = rand()%10000;
-        aux[i].info = rand()+100; //valor float
-        aux[i].chave = rand() + aux[i-1].chave; //chave aleator
+        aux[i].info = rand()+100; 
+        aux[i].chave = rand() + aux[i-1].chave; 
     }}
 
     return aux;

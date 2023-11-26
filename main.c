@@ -1,5 +1,14 @@
 #include "metodos.h"
 
+//COMO UTILIZAR O CÓDIGO: 
+//NA LINHA 24 PODEMOS DEFINIR O TAMANHO DOS VETORES, ASSIM COMO A QUANTIDADE DE VETORES QUE QUEREMOS REALIZAR OS TESTES.
+//NA LINHA 26 EXISTE A VARIAVEL INT SEED - NELA VOCÊ PODE SUBSTITUIR O VALOR DA SEED PARA DE SUA PREFERENCIA.
+//NA LINHA 32 SELECIONAMOS QUAIS MÉTODOS QUEREMOS QUE EXECUTE - (MODIFIQUE O FOR PARA OS VALORES QUE QUEIRA:)
+    //1- quickLS, 2- quick0, 3- quickM, 4- shell, 5- merge, 6- heap, 7- insertion, 8- bubble sort.
+//NA LINHA 34 PODEMOS DEFINIR SE QUEREMOS QUE EXECUTE SOMENTE UM TIPO, QUAL TIPO E OS DOIS TIPOS. (MODIFIQUE O FOR PARA O VALOR QUE QUEIRA).
+//O CÓDIGO RESULTARÁ EM UM ARQUIVO CSV DE OUTPUT COM TODOS OS RESULTADOS.
+//SE QUISER PODE EXECUTAR O ARQUIVO JUPYTER (OU EXECUTAR COM O GOOGLE COLLAB) PARA CONSEGUIR AS ANÁLISES GRÁFICAS + EXCEL DE TEMPOS MEDIOS DO SEU COMPUTADOR.
+
 int main(void){
 
     FILE *file;
@@ -11,26 +20,27 @@ int main(void){
         return 1;
     }
 
-    int vetores[5] = {10000, 50000, 100000, 500000, 1000000};
+
+    int vetores[5] = {10000, 50000, 100000, 500000, 1000000};   //ESCOLHA DOS TAMANHOS DE VETORES
     results* arrayResultados = (results*)malloc(79*sizeof(results));
-    unsigned int seed = 22001640;           //defina a seed dos numeros random 
+    unsigned int seed = 22001640; //DEFINIÇÃO DA VARIAVEL SEED
     srand(seed);
     int m = 0;
 
-    for(int j = 0; j < 8; j++){
+    for(int j = 2; j < 6; j++){
         
-        int sort = j;    //0 - 8 escolhe qual sort ele vai utilizar 
+        int sort = j;    //0 - 8 ESCOLHA DOS MÉTODOS SORTS PARA EXECUTAR 
 
         for(int l = 1; l < 3; l++){
 
-            int tipo = l; //define o tipo da array gerada
+            int tipo = l; //SELEÇÃO DO TIPO
             
-            for (int k = 0; k < 5; k++){
-                int n = vetores[k]; //defina o tamanho da array gerada           
+            for (int k = 0; k < 5; k++){    //ESCOLHA DOS TAMANHOS DOS VETORES
+                int n = vetores[k];     
                  
                 for(int i = 0; i < 10; i++){
 
-                    printf("\nA seed que voce esta executando e: %d\n", seed); //printa o valor da seed.
+                    printf("\nA seed que voce esta executando e: %d\n", seed); 
 
                     array* umum = gerarArray(n,tipo);
                     
@@ -92,7 +102,7 @@ int main(void){
 
 
     fprintf(file,"indice,metodo,tipo,tamanho,tempo1,tempo2,tempo3,tempo4,tempo5,tempo6,tempo7,tempo8,tempo9,tempo10\n");
-    for(int i = 0; i < 80; i++){
+    for(int i = 0; i < m; i++){
             fprintf(file,"%d,%s,%d,%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",
             i,
             arrayResultados[i].sort,
